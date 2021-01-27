@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% set active = "About" %}
+{% set active = "Bikes" %}
 
 {% block title %}
 Related Sites
@@ -20,24 +20,31 @@ Related Sites
 <table class="table">
     <thead>
         <tr>
-            <thead> Image </thead>
-            <thead> Name </thead>
-            <thead> Wheels </thead>
-            <thead> Size </thead>
-            <thead> Motorized </thead>
-            <thead> Folding </thead>
+            <th scope="col"> Image </th>
+            <th scope="col"> Name </th>
+            <th scope="col"> Wheels </th>
+            <th scope="col"> Size </th>
+            <th scope="col"> Motorized </th>
+            <th scope="col"> Folding </th>
         </tr>
     </thead>
 
-
-    <tbody> 
-        
-    </tbody>
-</table>
-<ul>
     {% for bike in data.bikedetail %}
-    <li><a href="{{ bike.id}}">{{ bike.name }}</a></li>
+    <tbody> 
+        <tr>
+            <td scope="col">
+                <img class="tabimage" width="100px" alt="Bike Image" src="../static/img/bikes/{{ bike.image }}">
+            </td>
+            <td scope="col">
+                {{ bike.name }}
+            </td>
+            <td scope="col"> {{ bike.wheels }}'' </td>
+            <td scope="col"> {{ bike.size }}</td>
+            <td scope="col"> {{ bike.motor }}</td>
+            <td scope="col"> {{ bike.folding }} </td>
+        </tr>
+    </tbody>
     {% endfor %}
-</ul>
+</table>
 
 {% endblock %}
