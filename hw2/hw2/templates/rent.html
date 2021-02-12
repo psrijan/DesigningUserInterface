@@ -1,0 +1,30 @@
+<!-- Srijan Pandey, sp3557@drexel.edu-->
+<!-- CS530, DUI, Assignment 2-->
+
+{% extends 'base.html' %}
+{% set active = "Rent" %}
+
+{% block header %}
+<script src="/static/js/bikeviewer.js"></script>
+{% endblock %}
+
+{% block title %}
+Rent A Bike
+{% endblock %}
+
+{% block content %}
+
+<h1>Rent a Bike </h1>
+
+<p>
+   Please select a rental from our available bikes below! 
+</p>
+<div id="biker"></div>
+<script>
+    $(function () {
+        const bikeViewer = new BikeViewer();
+        bikeViewer.load();
+    });
+</script>
+
+{% endblock %}

@@ -1,3 +1,6 @@
+# Srijan Pandey, sp3557@drexel.edu
+# CS530: DUI, Assignment 1
+
 import os
 
 from flask import Flask, g, json, render_template, request
@@ -14,7 +17,8 @@ def home():
 def about():
     return render_template('about.html')
 
-
+# I have used a dictionary datastructure here, as it is much more easier to query the values by name in the 
+# jinja template.
 @app.route('/bikes')
 def bikes():
     data = { 

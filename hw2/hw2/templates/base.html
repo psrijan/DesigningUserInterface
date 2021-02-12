@@ -1,0 +1,64 @@
+<!-- Srijan Pandey, sp3557@drexel.edu-->
+<!-- CS530, DUI, Assignment 1-->
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Drexel Bikes - {% block title %}{% endblock %}</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="/static/lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/main.css?id=1234">
+
+    <script src="/static/lib/jquery/jquery.min.js"></script>
+    <script src="/static/lib/popper/popper.min.js"></script>
+    <script src="/static/lib/bootstrap/bootstrap.min.js"></script>
+    {% block header %}{% endblock %}
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <nav class="navbar navbar-expand-md navbar-dark">
+                        <a class="navbar-brand" href="/"><img src="/static/img/bike-icon.svg" style="max-height: 40px;"></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item{% if active == 'Home' %} active{% endif %}">
+                                    <a class="nav-link" href="/">Home</a>
+                                </li>
+                                <li class="nav-item{% if active == 'About' %} active{% endif %}">
+                                    <a class="nav-link" href="/about">About</a>
+                                </li>
+                                <li class="nav-item{% if active == 'Rent' %} active{% endif %}">
+                                    <a class = "nav-link" href= "/rent">Rent</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container content">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+</body>
+
+</html>
