@@ -1,5 +1,5 @@
 # Srijan Pandey, sp3557@drexel.edu
-# CS530: DUI, Assignment 1
+# CS530: DUI, Assignment 2
 
 import os
 from db import Database
@@ -28,19 +28,18 @@ def about():
 def rent():
   return render_template('rent.html')
 
-# @app.route('/bikes')
-# def bikes():
-#     return render_template('bikes.html', data=data)
-
+# Util function to get response from database
 def generate_response():
     bikes = get_db().get_bikes()
     return jsonify(bikes)
 
+# Get All Bikes API
 @app.route('/api/get_bikes')
 def get_bikes():
     bikes = get_db().get_bikes()
     return jsonify(bikes)
 
+# POST method which updates the bikes information based on id
 @app.route('/api/update_bike', methods = ['POST'])
 def update_bikes():
     id = request.form.get('id', default = None)
@@ -48,6 +47,7 @@ def update_bikes():
     bikes = get_db().update_bikes(id, available)
     return generate_response() 
 
+# POST method which resets all bikes availability to 3
 @app.route('/api/reset_bikes', methods = ['POST'])
 def reset_bikes():
     num = request.form.get('available', default= 3)

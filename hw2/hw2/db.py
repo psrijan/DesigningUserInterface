@@ -1,3 +1,6 @@
+# Srijan Pandey, sp3557@drexel.edu
+# CS530: DUI, Assignment 2 
+
 import sqlite3
 
 class Database:
@@ -38,6 +41,7 @@ class Database:
         self.execute("UPDATE BIKES SET available=? WHERE id=?", [available, uid])
 
     def reset_bikes(self, num = 3):
+        print("Checking Reset" + str(num))
         bike_list = self.get_bikes()
         for bike in bike_list:
-            self.update_bikes(bike['id'], 3)
+            self.update_bikes(bike['id'], num)

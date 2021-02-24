@@ -1,3 +1,8 @@
+/** 
+Srijan Pandey, sp3557@drexel.edu
+CS530: DUI, Assignment 2
+**/
+
 .unavailable {
     opacity: .25;
 }
@@ -13,3 +18,9 @@
 .name-col {
     max-width: 600px;
 }
+
+.tabimage {
+    max-height: 100px;
+    max-width: 100px;
+}
+
