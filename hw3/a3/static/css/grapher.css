@@ -1,0 +1,16 @@
+body {
+    font-family: "Avenir";
+    font-size: 1rem;
+    background: #eee;
+}
+
+header {
+    background: #354796;
+}
+
+canvas {
+    background: #fff;
+    position: relative;
+    top: 0;
+    right: 0;
+}
