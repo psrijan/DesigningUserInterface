@@ -1,3 +1,6 @@
+/*Srijan Pandey, sp3557@drexel.edu*/
+/* CS530, DUI Assignment 3 */
+
 body {
     font-family: "Avenir";
     font-size: 1rem;
@@ -13,4 +16,20 @@ canvas {
     position: relative;
     top: 0;
     right: 0;
+}
+
+.coef {
+    width: 40px;
+}
+
+#grapher-wrapper {
+    position: relative;
+    left: 20px;
+    top: 20px;
+}
+
+.coef-tray {
+    position: relative;
+    left: 230px;
+    top: 10px;
 }

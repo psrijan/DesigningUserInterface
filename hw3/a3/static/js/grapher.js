@@ -1,34 +1,29 @@
 // Srijan Pandey, sp3557@drexel.edu
 // CS530: DUI, Assignment 3 
 
- /* 
-    STEPS:
-    - Set up mechanics to invoke a method from the UI to build a grapher first - DONE
-    - Build Canvas (Done)
-    - Draw a grid on top of the canvas (done)
-    - Draw central grid lines (done)
-    - Draw numbers in each of the grid  (done)
-    - Draw Graph Logic (done) 
-    - Make the graph dynamically created ()
-    - Add points to the graph ()
-    - 
-*/
-
-
-
 var pixelsPerCell = 35;
 var totalCols = 20; // adding 1 col in left and right
 var totalRows = 12; // adding 1 row in top and bottom
-var canvasSizeX = 22 * 35;
+var canvasSizeX = 22 * 35; // Pixel into number of unit boxes
 var canvasSizeY = 14 * 35;
 
-
+/**
+ * Grid is used to draw all necessary grid components in the
+ * canvas. 
+ * @param {Passes in the grapher object for reference} grapher 
+ */
 function Grid(grapher) {
 
+    /** Leave a space equivalent to 1 gridbox in canvas before drawing the grid lines */
     const startPosX = 1;
     const startPosY = 1;
 
-    // This function draws a basic grid inside the canvas
+    /**
+     * This function draws a basic grid inside the canvas
+     * Draws the column lines, and the row lines
+     * Highlights the axes 
+     * Marks integer values to individual grids.
+     */ 
     this.draw = function () {
         grapher.canvas.clearRect(0, 0, canvasSizeX * pixelsPerCell, canvasSizeY * pixelsPerCell);
         let ctx = grapher.canvas;
@@ -48,7 +43,6 @@ function Grid(grapher) {
         ctx.stroke();
 
         // Drawing the axis lines in the middle of the grid
-
         // Drawing Row Axis Line
         ctx.beginPath();
         ctx.lineWidth = 1;
@@ -70,53 +64,78 @@ function Grid(grapher) {
         // Row Axis
         let index = 6; 
         const ADJUSTMENT_PIXEL = 15;
-
+        
+        // Adds markings for each of the grid value
         for (let i = startPosY; i <= startPosY + totalRows; i++) {
             ctx.fillText(index, (startPosX + totalCols / 2) * pixelsPerCell - ADJUSTMENT_PIXEL, i * pixelsPerCell);
             index--; 
         }
-
+        
+        // Adds markings column for each of the grid value
         index = -10;
         for (let i = startPosX; i <= startPosX + totalCols; i++ ) {
             ctx.fillText(index, i * pixelsPerCell, (startPosY + totalRows / 2) * pixelsPerCell + ADJUSTMENT_PIXEL);
             index++;
         }
     }
-
+    
+    /**
+     * Reverse Translational function to map canvas value of X to actual value of the X coordinate in the equation 
+     */
     this.findCoordX = function(canvasX) {
        return canvasX / pixelsPerCell - totalCols /2 - startPosX; 
     }
 
+    /**
+     * Translational function to map the corX value 
+     * to corY value   
+     */
     this.findCoordY = function (corX , x_0, x_1, x_2, x_3) {
             let xx_3 = x_3 * Math.pow(corX, 3);
             let xx_2 = x_2 * Math.pow(corX, 2);
             let xx_1 = x_1 * corX;
-            return xx_3 + xx_2 + xx_1 + x_0; 
+            let coord_y = xx_3 + xx_2 + xx_1 + x_0 * 1; 
+            return coord_y;
     }
 
+    /**
+     * Translational function between equational value of x 
+     * to the equivalent scaled value of X in the canvas. 
+     */
     this.findCanvasX = function(corX) {
         return (startPosX + totalCols / 2 + corX) * pixelsPerCell;
     }
 
+    /**
+     * Translation function between equaltional value of y 
+     * to the equivalent scaled value of Y in the canvas. 
+     */
     this.findCanvasY = function(corY) {
         return (startPosY + totalRows / 2 - corY) * pixelsPerCell; 
     }
-
+    /**
+     * Plots the graph in the grid 
+     * parameters are the coefs of the polynomial 
+     */
     this.plot = function(x_0, x_1, x_2, x_3) {
         console.log("Value of x_0: " + x_0);
         let ctx = grapher.canvas;
         let curX = -3; 
-        let INRECEMENT_VALUE = .00028; // every x value is multiplied by 35 pixel
+        let INRECEMENT_VALUE = .1; // every x value is multiplied by 35 pixel
         ctx.lineWidth = 2; 
         let prevcX = 0;
         let prevcY = 0;
         ctx.strokeStyle = 'blue';
-        for (let corX = -4; corX <= 4; corX = corX + INRECEMENT_VALUE) {
+
+        const GRAPH_START_VALUE = -10;
+        
+        for (let corX = GRAPH_START_VALUE; corX <= -1 * GRAPH_START_VALUE; corX = corX + INRECEMENT_VALUE) {
             let corY = this.findCoordY(corX, x_0, x_1, x_2, x_3);
             let canvasX = this.findCanvasX(corX);
+            console.log("Coordinate Y : " + corY);
             let canvasY = this.findCanvasY(corY);
             //ctx.fillRect(canvasX, canvasY, 1, 1);
-            if (corX > -4) {
+            if (corX > GRAPH_START_VALUE) {
                 ctx.beginPath();
                 ctx.moveTo(prevcX, prevcY);
                 ctx.lineTo(canvasX, canvasY);
@@ -127,17 +146,19 @@ function Grid(grapher) {
         }
     }
 
+    /**
+     * This function draws the Index that indicates the coordinates on the graph 
+     * @param {Coordinate value of X in the canvas} canvasX 
+     * @param {Coeffs the user has specified for the polynomial} coeffs 
+     */
     this.drawIndex = function(canvasX, coeffs) {
         let corX = this.findCoordX(canvasX);
         let corY = this.findCoordY(corX, coeffs[0], coeffs[1], coeffs[2], coeffs[3]); 
         let canvasY = this.findCanvasY(corY);
         let ctx = grapher.canvas;
         ctx.fillStyle = 'green';
-
-        ctx.fillRect(canvasX, canvasY, 60, 15);
+        ctx.fillRect(canvasX, canvasY, 68, 15);
         
-        console.log("TYPE OF X: " + typeof(corX));
-        console.log("TYPE OF Y: " + typeof(corY));
         let corXTrunc = corX.toFixed(2);
         let corYTrunc = parseFloat(corY).toFixed(2);
 
@@ -149,7 +170,12 @@ function Grid(grapher) {
 
 }
 
-
+/**
+ * Mediator class that gets 
+ *  - necessary values from the UI
+ *  - invokes functions to draw, redraw, index points
+ * 
+ */
 function Grapher() {
     
     const that = this;
@@ -157,6 +183,10 @@ function Grapher() {
     this.canvas = document.getElementById("canvas").getContext("2d");
     this.grid = new Grid(this);
 
+    /**
+     * getter that fetches values of coefficients from the 
+     * UI TextArea 
+     */
     this.getCoeff = function() {
         let x_3 = $("#x_3").val();
         let x_2 = $("#x_2").val();
@@ -203,16 +233,9 @@ function startGraph() {
 }
 
 /**
- * 
+ * Function call from the UI that draws the green UI index 
+ * that indicates the points in the graph
  */
 function drawIndex(canvasX) {
     grapher.drawIndex(canvasX);
-}
-
-/**
- * 
- */
-function redrawGraph() {
-    console.log("YOLO!!!");
-    grapher.getCoeff();
 }
