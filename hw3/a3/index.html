@@ -37,12 +37,13 @@
             <canvas id="canvas" width="770" height= "490"></canvas>
             <div class ="coef-tray">
                 <p>y = 
-                <input type = "text" id = "x_3" name = "x_3">
+                <input type = "text" id = "x_3" name = "x_3" class = "coef">
                 x<sup>3</sup> + 
-                <input type = "text" id = "x_2" name = "x_2">
+                <input type = "text" id = "x_2" name = "x_2" class = "coef">
                 x<sup>2</sup> + 
-                <input type = "text" id = "x_1" name = "x_1"> 
-                x
+                <input type = "text" id = "x_1" name = "x_1" class = "coef"> 
+                x +
+                <input type = "text" id= "x_0" name = "x_0" class = "coef">
                 </p>
             </div>
 
@@ -50,14 +51,23 @@
     </div>
 
     <script>
-
         $(function() {
             // create your Grapher here within the #grapher-wrapper div
             $(document).ready(function () {
                 startGraph();
+            });
+            
+            $(".coef").keyup(function() {
+                startGraph();
             })
+            
+            $("#canvas").mousemove(function(event) {
+                console.log("X Offset: " + event.offsetX);
+                console.log("Y Offeset: " + event.offsetY);
+                startGraph();
+                drawIndex(event.offsetX);
+            });
         });
-
     </script>
 
 </body>

@@ -70,6 +70,7 @@ function Grid(grapher) {
         // Row Axis
         let index = 6; 
         const ADJUSTMENT_PIXEL = 15;
+
         for (let i = startPosY; i <= startPosY + totalRows; i++) {
             ctx.fillText(index, (startPosX + totalCols / 2) * pixelsPerCell - ADJUSTMENT_PIXEL, i * pixelsPerCell);
             index--; 
@@ -82,30 +83,70 @@ function Grid(grapher) {
         }
     }
 
-    this.findXCoordinates = function(x) {
-        return (startPosX + totalCols / 2 + x) * pixelsPerCell;
+    this.findCoordX = function(canvasX) {
+       return canvasX / pixelsPerCell - totalCols /2 - startPosX; 
     }
 
-    this.findYCoordinates = function(y) {
-        return (startPosY + totalRows / 2 - y) * pixelsPerCell; 
-    }
-
-    this.plot = function(x_3, x_2, x_1) {
-        let ctx = grapher.canvas;
-        ctx.strokeStyle = 'blue';
-        let curX = -3; 
-        let INRECEMENT_VALUE = .028; // every x value is multiplied by 35 pixel
-
-        for (let corX = -4; corX <= 4; corX = corX + INRECEMENT_VALUE) {
+    this.findCoordY = function (corX , x_0, x_1, x_2, x_3) {
             let xx_3 = x_3 * Math.pow(corX, 3);
             let xx_2 = x_2 * Math.pow(corX, 2);
             let xx_1 = x_1 * corX;
-            let corY = xx_3 + xx_2 + xx_1; 
-            let canvasX = this.findXCoordinates(corX);
-            let canvasY = this.findYCoordinates(corY);
-            ctx.fillRect(canvasX, canvasY, 2, 2);
+            return xx_3 + xx_2 + xx_1 + x_0; 
+    }
+
+    this.findCanvasX = function(corX) {
+        return (startPosX + totalCols / 2 + corX) * pixelsPerCell;
+    }
+
+    this.findCanvasY = function(corY) {
+        return (startPosY + totalRows / 2 - corY) * pixelsPerCell; 
+    }
+
+    this.plot = function(x_0, x_1, x_2, x_3) {
+        console.log("Value of x_0: " + x_0);
+        let ctx = grapher.canvas;
+        let curX = -3; 
+        let INRECEMENT_VALUE = .00028; // every x value is multiplied by 35 pixel
+        ctx.lineWidth = 2; 
+        let prevcX = 0;
+        let prevcY = 0;
+        ctx.strokeStyle = 'blue';
+        for (let corX = -4; corX <= 4; corX = corX + INRECEMENT_VALUE) {
+            let corY = this.findCoordY(corX, x_0, x_1, x_2, x_3);
+            let canvasX = this.findCanvasX(corX);
+            let canvasY = this.findCanvasY(corY);
+            //ctx.fillRect(canvasX, canvasY, 1, 1);
+            if (corX > -4) {
+                ctx.beginPath();
+                ctx.moveTo(prevcX, prevcY);
+                ctx.lineTo(canvasX, canvasY);
+                ctx.stroke(); 
+            }
+            prevcX = canvasX;
+            prevcY = canvasY;
         }
     }
+
+    this.drawIndex = function(canvasX, coeffs) {
+        let corX = this.findCoordX(canvasX);
+        let corY = this.findCoordY(corX, coeffs[0], coeffs[1], coeffs[2], coeffs[3]); 
+        let canvasY = this.findCanvasY(corY);
+        let ctx = grapher.canvas;
+        ctx.fillStyle = 'green';
+
+        ctx.fillRect(canvasX, canvasY, 60, 15);
+        
+        console.log("TYPE OF X: " + typeof(corX));
+        console.log("TYPE OF Y: " + typeof(corY));
+        let corXTrunc = corX.toFixed(2);
+        let corYTrunc = parseFloat(corY).toFixed(2);
+
+        let text =  + corXTrunc + " , " + corYTrunc; 
+        ctx.font = '10px serif';
+        ctx.fillStyle = "#fff";
+        ctx.fillText(text, canvasX + 5, canvasY + 12);
+    }
+
 }
 
 
@@ -115,16 +156,34 @@ function Grapher() {
     // Context here gives a surface to draw
     this.canvas = document.getElementById("canvas").getContext("2d");
     this.grid = new Grid(this);
-    
+
+    this.getCoeff = function() {
+        let x_3 = $("#x_3").val();
+        let x_2 = $("#x_2").val();
+        let x_1 = $("#x_1").val();
+        let x_0 = $("#x_0").val();
+
+        x_3 = isNaN(x_3) ? 0 : x_3;
+        x_2 = isNaN(x_2) ? 0 : x_2;
+        x_1 = isNaN(x_1) ? 0 : x_1;
+        x_0 = isNaN(x_0) ? 0 : x_0; 
+        return [x_0, x_1, x_2, x_3];
+    }
+
     /**
      * This function adds components to the grapher object
      * Adds html comonents (canvas, equation, input controls)
      */
     this.build = function(graphId) {
         this.grid.draw();
-        this.grid.plot(0, 1, 0);
+        let coeffs = this.getCoeff();
+        this.grid.plot(coeffs[0], coeffs[1], coeffs[2], coeffs[3]);
         return this;
     } 
+
+    this.drawIndex = function(canvasX) {
+        this.grid.drawIndex(canvasX, this.getCoeff());
+    }
   
 }
 
@@ -138,5 +197,22 @@ var grapher = null;
 function startGraph() {
    if (!grapher) {
         grapher = new Grapher().build("grapher-wrapper");
+   } else {
+       grapher.build("grapher-wrapper");
    }
+}
+
+/**
+ * 
+ */
+function drawIndex(canvasX) {
+    grapher.drawIndex(canvasX);
+}
+
+/**
+ * 
+ */
+function redrawGraph() {
+    console.log("YOLO!!!");
+    grapher.getCoeff();
 }
