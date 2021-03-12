@@ -25,9 +25,8 @@ class Database():
 
     def search_more_charities(self, uuid):
         charity = self.get_charity(uuid)
-        charities = self.indexer.search(charity.mission, 'mission', n = 6, join = 'or', avoid = uuid)
+        charities = self.indexer.search(charity['mission'], 'mission', n = 6, join = 'or', avoid = {'uid': uuid})
         return charities 
-
 
 
 if __name__ == '__main__':

@@ -5,11 +5,10 @@
 5. create api 1 for sending in general information (done)
 6. Create API 2 for creating special information (done)
 7. Create Database (done) 
-8. Add the readmore functionality 
-9. Add the text highlighting functionality
-10. Add the similar items functionality
-7. Work with bootstrap and css to make it look like it should 
-
+8. Add the readmore functionality (done) 
+9. Add the text highlighting functionality (done)
+10. Add the similar items functionality (done)
+11.
 
 
 - Crate DB.py 

@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% set active = "Detail" %}
 
+{% block header %}
+    <script src = "../static/js/viewer.js"></script>
+{% endblock %}
+
 {% block title %}
 Detail
 {% endblock %}
@@ -33,9 +37,17 @@ Detail
 
     <div class = "related-org">
         <h2 class = "related-org-header">Related Organizations</h2>
-        <div class = "similar-org-holder"></div>
+        <div class = "org-holder" id = "org-holder"></div>
     </div>
 
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        let viewer = new Viewer();
+        viewer.getRelatedCharities();
+    });
+</script>
 
 {% endblock %}

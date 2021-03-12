@@ -24,7 +24,7 @@ def search_charity():
     charity = db.search_charities(query)
     return jsonify(charity)
 
-@app.route('/search', methods = ['GET'])
+@app.route('/search/related', methods = ['GET'])
 def search_additional_charity():
     uid = request.args.get("uid", 0)
     charity = db.search_more_charities(uid)
