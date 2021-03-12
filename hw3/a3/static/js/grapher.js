@@ -29,8 +29,8 @@ function Grid(grapher) {
         let ctx = grapher.canvas;
         // Drawing Rows 
         ctx.beginPath();
-        ctx.lineWidth = .4;
-        ctx.strokeStyle = '#888888';
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'gray';
         for (let i = startPosX; i <= totalCols + startPosX; i++) {
             ctx.moveTo(i * pixelsPerCell, startPosY * pixelsPerCell);
             ctx.lineTo(i * pixelsPerCell, (startPosY + totalRows) * pixelsPerCell);
@@ -45,7 +45,7 @@ function Grid(grapher) {
         // Drawing the axis lines in the middle of the grid
         // Drawing Row Axis Line
         ctx.beginPath();
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 2;
         ctx.strokeStyle = '#000';
         ctx.moveTo((startPosX + totalCols / 2) * pixelsPerCell, startPosY * pixelsPerCell);
         ctx.lineTo((startPosX + totalCols / 2) * pixelsPerCell, (startPosY + totalRows) * pixelsPerCell);
@@ -53,28 +53,29 @@ function Grid(grapher) {
         
         // Drawing the Column Axis Line
         ctx.beginPath();
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 2;
         ctx.moveTo(startPosX * pixelsPerCell, (startPosY + totalRows / 2) * pixelsPerCell);
         ctx.lineTo((startPosX + totalCols) * pixelsPerCell , (startPosY + totalRows / 2 ) * pixelsPerCell);
         ctx.stroke();
 
         // Adding Text to Graph Axis
-        ctx.font = "10px";
-        ctx.fillStyle = "#888";
+        ctx.font = "12px Helvetica";
+        ctx.fillStyle = "gray";
         // Row Axis
         let index = 6; 
         const ADJUSTMENT_PIXEL = 15;
-        
-        // Adds markings for each of the grid value
+        const TEXT_OFFSET_ROW = 5; 
+        // Adds markings for each row of the grid value
         for (let i = startPosY; i <= startPosY + totalRows; i++) {
-            ctx.fillText(index, (startPosX + totalCols / 2) * pixelsPerCell - ADJUSTMENT_PIXEL, i * pixelsPerCell);
+            ctx.fillText(index, (startPosX + totalCols / 2) * pixelsPerCell - ADJUSTMENT_PIXEL, i * pixelsPerCell + TEXT_OFFSET_ROW);
             index--; 
         }
-        
+       
+        const TEXT_OFFSET_COL = 3;
         // Adds markings column for each of the grid value
         index = -10;
         for (let i = startPosX; i <= startPosX + totalCols; i++ ) {
-            ctx.fillText(index, i * pixelsPerCell, (startPosY + totalRows / 2) * pixelsPerCell + ADJUSTMENT_PIXEL);
+            ctx.fillText(index, i * pixelsPerCell - TEXT_OFFSET_COL, (startPosY + totalRows / 2) * pixelsPerCell + ADJUSTMENT_PIXEL);
             index++;
         }
     }
@@ -132,9 +133,7 @@ function Grid(grapher) {
         for (let corX = GRAPH_START_VALUE; corX <= -1 * GRAPH_START_VALUE; corX = corX + INRECEMENT_VALUE) {
             let corY = this.findCoordY(corX, x_0, x_1, x_2, x_3);
             let canvasX = this.findCanvasX(corX);
-            console.log("Coordinate Y : " + corY);
             let canvasY = this.findCanvasY(corY);
-            //ctx.fillRect(canvasX, canvasY, 1, 1);
             if (corX > GRAPH_START_VALUE) {
                 ctx.beginPath();
                 ctx.moveTo(prevcX, prevcY);

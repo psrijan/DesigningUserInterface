@@ -1,0 +1,23 @@
+1. Complete the base template (done)
+2. Create the table template (done)
+3. Make the Rest API Connection (done)
+4. Create another template for displaying the additional details (done)
+5. create api 1 for sending in general information (done)
+6. Create API 2 for creating special information (done)
+7. Create Database (done) 
+8. Add the readmore functionality 
+9. Add the text highlighting functionality
+10. Add the similar items functionality
+7. Work with bootstrap and css to make it look like it should 
+
+
+
+- Crate DB.py 
+    - indexData
+        isEmpty()
+            populate()
+    - 
+
+
+How do you craete Query? 
+    - 
