@@ -1,0 +1,59 @@
+<!-- Srijan Pandey, sp3557@drexel.edu-->
+<!-- CS530: DUI, Assignment [4] -->
+
+{% extends 'base.html' %}
+{% set active = "Home" %}
+
+{% block header %}
+    <script src = "../static/js/searchers.js"></script>
+    <script src = "../static/js/viewer.js"></script>
+{% endblock %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<section class="container">
+
+
+    <div class="">
+        <div class="banner-div d-flex justify-content-center text-center mb-5">
+            <div class = "d-flex flex-column">
+                <div class = "mb-2">
+                    <h1 class = "main-banner"> Charity Search</h2>
+                </div>
+                <div>
+                    <p class="banner-extra">Find a worthy charity today!</p>
+                </div>
+            </div>
+        </div>
+        <div class = "d-flex justify-content-center mb-5">
+            <div class="search-area form-inline">
+                <textarea class="search-field mr-5" id="search-field"></textarea>
+                <button class = "search-button btn" id = "search-button"> Search </button>
+            </div>
+        </div>
+
+        <div class="charity-block" id = "charity-block">
+        </div>
+    </div>
+</section>
+
+
+<script>
+    $(function() {
+        const searcher = new Searcher();
+        searcher.initialize();
+        console.log("Initializing...")
+        
+        $("#search-button").click(function() {
+            console.log("Button Clicked..");
+            searcher.findCharity();
+        });
+    });
+
+</script>
+
+{% endblock %}

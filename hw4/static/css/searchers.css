@@ -1,0 +1,72 @@
+.highlighted {
+    background-color: orange;
+}
+.search-button {
+    border-width: 2px;
+    border-color: #1A4F83;
+    background-color: #FFC10E;
+    border-radius: 5%;
+}
+
+.search-area {
+    margin-left: 200px;
+    color: orange;
+    padding-top: 5px;
+    font-size: 1.4em;
+}
+.search-field{
+    width: 500px;
+    height: 45px;
+}
+
+.banner-div {
+    margin-top: 70px;
+
+}
+.main-banner {
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size:60px;
+}
+
+.banner-extra {
+    font-size: 20px;
+    margin-bottom: 25px;
+}
+
+.read-more {
+    text-decoration: underline;
+}
+
+.read-more :hover {
+    font-weight: bold;
+}
+
+
+.navbar-expand-md .navbar-nav .nav-link {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.content {
+    padding: 2rem 1.5rem;
+}
+
+.td-mission {
+    max-width: 500px;
+}
+
+
+.td-basic {
+    width: 200px;
+}
+
+.detail-link {
+    font-weight: bold;
+}
+
+
+.padding-0{
+    padding-right:0;
+    padding-left:0;
+}

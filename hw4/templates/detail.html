@@ -1,0 +1,57 @@
+<!-- Srijan Pandey, sp3557@drexel.edu-->
+<!-- CS530: DUI, Assignment [4] -->
+
+{% extends 'base.html' %}
+{% set active = "Detail" %}
+
+{% block header %}
+    <script src = "../static/js/viewer.js"></script>
+{% endblock %}
+
+{% block title %}
+Detail
+{% endblock %}
+
+{% block content %}
+
+<div class = "container">
+
+    <div class = "head-info">
+        <div class = "row pb-2">
+            <!-- Section to hold the image -->
+            <div class = "col col-2">
+                <img src="{{charity.categoryImage}}" class="img-style" alt="Category Image">
+            </div>
+            <div class = "col col-10">
+                <h1>{{charity.name}}</h1>
+                <img src="{{charity.ratingImage}}" alt="Rating Image"> <br> <br>
+                <p> 
+                    {{charity.mailStreet}} <br>
+                    {{charity.mailCity}}, {{charity.mailState}}, {{charity.mailZIP}}
+                </p>
+                <p>Organization Website: <a href="{{charity.websiteURL}}">{{charity.websiteURL}}</a></p>
+                <p>Charity Navigator: <a href="{{charity.charityNavigatorURL}}"> Detailed Analysis</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class = "body-info pb-5">
+        <p>{{charity.mission}}</p>
+    </div>
+
+    <div class = "related-org">
+        <h4 class = "related-org-header mb-1">Related Organizations</h4>
+        <div class = "org-holder" id = "org-holder"></div>
+    </div>
+
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        let viewer = new Viewer();
+        viewer.getRelatedCharities();
+    });
+</script>
+
+{% endblock %}
