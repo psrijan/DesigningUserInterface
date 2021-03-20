@@ -61,9 +61,30 @@ your search query, to make it easy how you got the results.
 # Result:
 ![Charity Main Page](./results/charity_main.png)
 
+
 ![Charity Details Page](./results/charity_details.png)
+
 
 ![Charity Search Highlight](./results/charity_extra.png)
 
+
+## Class Overview - CS530
+
+Designing user interface class went over numerous aspects of user interface design. Each week, we were asked to work on a philosophical and research area in user interface design and comprehend aspects such as
+1. What are the methodologies in the process? 
+2. What areas of focus?
+3. Why it is important for user interface design?
+4. What are the shortcomings of the process?
+
+The areas we looked into were
+1. Rapid Prototyping
+2. AI Driven User Interface
+3. User Interface Evaluation methodologies among numerous other topics.
+
+We also went into different areas of user interface design such as 1) Desktop Interface Design 2) Mobile Interface Design 3) Web Application Design 4) Non conventional user interface design (Kiosk, Vehicle UIs). Each of these examples, ended up with code examples and discussions of what the individual areas of the code are like. 
+
+The assignments were a way to implement these ideas. The programming built on web interface design as this is a very prevalent form of development in the industry and concepts in this area can very easily be translated to other areas of user interface design.
+
+
  
-    
+
